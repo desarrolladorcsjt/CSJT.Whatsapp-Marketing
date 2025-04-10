@@ -30,7 +30,7 @@ jobs:
     - name: Build Frontend
       working-directory: ./frontend
       run: |
-        npm run build  # Asegúrate de que este comando genera la build
+        CI='' npm run build
 
     # Paso 5: Construir la imagen Docker del frontend
     - name: Build Docker image (Frontend)
