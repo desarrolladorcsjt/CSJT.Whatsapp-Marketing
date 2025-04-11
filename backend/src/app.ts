@@ -17,12 +17,18 @@ Sentry.init({ dsn: process.env.SENTRY_DSN });
 const app = express();
 const allowedOrigins = [process.env.FRONTEND_URL, 'http://localhost', 'http://127.0.0.1', 'http://192.168.1.230', 'http://192.168.1.55'];
 
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE');
-  next();
-});
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      callback(null, origin); // ← Devuelve el mismo origin que hace la petición
+    },
+    credentials: true,
+    methods: "GET,POST,PUT,DELETE,PATCH,OPTIONS",
+    allowedHeaders: "Origin,X-Requested-With,Content-Type,Accept,Authorization"
+  })
+);
+app.options("*", cors());
+
 
 // app.use(
 //   cors({

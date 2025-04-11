@@ -19,7 +19,7 @@ const messages = {
         },
       },
       login: {
-        title: "Inicio de Sesión-v1",
+        title: "Inicio de Sesión-v2",
         form: {
           email: "Correo Electrónico",
           password: "Contraseña",
