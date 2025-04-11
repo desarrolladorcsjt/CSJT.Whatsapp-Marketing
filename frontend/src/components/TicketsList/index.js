@@ -182,70 +182,72 @@ const TicketsList = (props) => {
   }, [tickets]);
 
   // Edgar
-  // useEffect(() => {
-  // 	const socket = openSocket();
+  useEffect(() => {
+  	const socket = openSocket();
 
-  // 	const shouldUpdateTicket = ticket => !searchParam &&
-  // 		(!ticket.userId || ticket.userId === user?.id || showAll) &&
-  // 		(!ticket.queueId || selectedQueueIds.indexOf(ticket.queueId) > -1);
+  	const shouldUpdateTicket = ticket => !searchParam &&
+  		(!ticket.userId || ticket.userId === user?.id || showAll) &&
+  		(!ticket.queueId || selectedQueueIds.indexOf(ticket.queueId) > -1);
 
-  // 	const notBelongsToUserQueues = ticket =>
-  // 		ticket.queueId && selectedQueueIds.indexOf(ticket.queueId) === -1;
+  	const notBelongsToUserQueues = ticket =>
+  		ticket.queueId && selectedQueueIds.indexOf(ticket.queueId) === -1;
 
-  // 	socket.on("connect", () => {
-  // 		if (status) {
-  // 			socket.emit("joinTickets", status);
-  // 		} else {
-  // 			socket.emit("joinNotification");
-  // 		}
-  // 	});
+  	socket.on("connect", () => {
+  		if (status) {
+  			socket.emit("joinTickets", status);
+  		} else {
+  			socket.emit("joinNotification");
+  		}
+  	});
 
-  // 	socket.on("ticket", data => {
-  // 		if (data.action === "updateUnread") {
-  // 			dispatch({
-  // 				type: "RESET_UNREAD",
-  // 				payload: data.ticketId,
-  // 			});
-  // 		}
+  	socket.on("ticket", data => {
+  		if (data.action === "updateUnread") {
+  			dispatch({
+  				type: "RESET_UNREAD",
+  				payload: data.ticketId,
+  			});
+  		}
 
-  // 		if (data.action === "update" && shouldUpdateTicket(data.ticket)) {
-  // 			dispatch({
-  // 				type: "UPDATE_TICKET",
-  // 				payload: data.ticket,
-  // 			});
-  // 		}
+  		if (data.action === "update" && shouldUpdateTicket(data.ticket)) {
+  			dispatch({
+  				type: "UPDATE_TICKET",
+  				payload: data.ticket,
+  			});
+  		}
 
-  // 		if (data.action === "update" && notBelongsToUserQueues(data.ticket)) {
-  // 			dispatch({ type: "DELETE_TICKET", payload: data.ticket.id });
-  // 		}
+  		if (data.action === "update" && notBelongsToUserQueues(data.ticket)) {
+  			dispatch({ type: "DELETE_TICKET", payload: data.ticket.id });
+  		}
 
-  // 		if (data.action === "delete") {
-  // 			dispatch({ type: "DELETE_TICKET", payload: data.ticketId });
-  // 		}
-  // 	});
+  		if (data.action === "delete") {
+  			dispatch({ type: "DELETE_TICKET", payload: data.ticketId });
+  		}
+  	});
 
-  // 	socket.on("appMessage", data => {
-  // 		if (data.action === "create" && shouldUpdateTicket(data.ticket)) {
-  // 			dispatch({
-  // 				type: "UPDATE_TICKET_UNREAD_MESSAGES",
-  // 				payload: data.ticket,
-  // 			});
-  // 		}
-  // 	});
+  	socket.on("appMessage", data => {
+  		if (data.action === "create" && shouldUpdateTicket(data.ticket)) {
+  			dispatch({
+  				type: "UPDATE_TICKET_UNREAD_MESSAGES",
+  				payload: data.ticket,
+  			});
+  		}
+  	});
 
-  // 	socket.on("contact", data => {
-  // 		if (data.action === "update") {
-  // 			dispatch({
-  // 				type: "UPDATE_TICKET_CONTACT",
-  // 				payload: data.contact,
-  // 			});
-  // 		}
-  // 	});
+  	socket.on("contact", data => {
+  		if (data.action === "update") {
+  			dispatch({
+  				type: "UPDATE_TICKET_CONTACT",
+  				payload: data.contact,
+  			});
+  		}
+  	});
 
-  // 	return () => {
-  // 		socket.disconnect();
-  // 	};
-  // }, [status, searchParam, showAll, user, selectedQueueIds]);
+  	return () => {
+  		socket.disconnect();
+  	};
+  }, [status, searchParam, showAll, user, selectedQueueIds]);
+
+  //descomentado el 11042025 Edgar
 
   /* eslint-disable-next-line react-hooks/exhaustive-deps */
   useEffect(() => {
@@ -315,72 +317,73 @@ const TicketsList = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [status, searchParam, showAll, user, selectedQueueIds, dispatch]);
 
-  //   useEffect(() => {
-  //     const socket = openSocket();
+  //Edgar Garcia 11042025 DESCOMENTADO
+    useEffect(() => {
+      const socket = openSocket();
 
-  //     const shouldUpdateTicket = (ticket) =>
-  //       !searchParam &&
-  //       (!ticket.userId || ticket.userId === user?.id || showAll) &&
-  //       (!ticket.queueId || selectedQueueIds.indexOf(ticket.queueId) > -1);
+      const shouldUpdateTicket = (ticket) =>
+        !searchParam &&
+        (!ticket.userId || ticket.userId === user?.id || showAll) &&
+        (!ticket.queueId || selectedQueueIds.indexOf(ticket.queueId) > -1);
 
-  //     const notBelongsToUserQueues = (ticket) =>
-  //       ticket.queueId && selectedQueueIds.indexOf(ticket.queueId) === -1;
+      const notBelongsToUserQueues = (ticket) =>
+        ticket.queueId && selectedQueueIds.indexOf(ticket.queueId) === -1;
 
-  //     socket.on("connect", () => {
-  //       if (status) {
-  //         socket.emit("joinTickets", status);
-  //       } else {
-  //         socket.emit("joinNotification");
-  //       }
-  //     });
+      socket.on("connect", () => {
+        if (status) {
+          socket.emit("joinTickets", status);
+        } else {
+          socket.emit("joinNotification");
+        }
+      });
 
-  //     socket.on("ticket", (data) => {
-  //       if (data.action === "updateUnread") {
-  //         dispatch({
-  //           type: "RESET_UNREAD",
-  //           payload: data.ticketId,
-  //         });
-  //       }
+      socket.on("ticket", (data) => {
+        if (data.action === "updateUnread") {
+          dispatch({
+            type: "RESET_UNREAD",
+            payload: data.ticketId,
+          });
+        }
 
-  //       if (data.action === "update" && shouldUpdateTicket(data.ticket)) {
-  //         dispatch({
-  //           type: "UPDATE_TICKET",
-  //           payload: data.ticket,
-  //         });
-  //       }
+        if (data.action === "update" && shouldUpdateTicket(data.ticket)) {
+          dispatch({
+            type: "UPDATE_TICKET",
+            payload: data.ticket,
+          });
+        }
 
-  //       if (data.action === "update" && notBelongsToUserQueues(data.ticket)) {
-  //         dispatch({ type: "DELETE_TICKET", payload: data.ticket.id });
-  //       }
+        if (data.action === "update" && notBelongsToUserQueues(data.ticket)) {
+          dispatch({ type: "DELETE_TICKET", payload: data.ticket.id });
+        }
 
-  //       if (data.action === "delete") {
-  //         dispatch({ type: "DELETE_TICKET", payload: data.ticketId });
-  //       }
-  //     });
+        if (data.action === "delete") {
+          dispatch({ type: "DELETE_TICKET", payload: data.ticketId });
+        }
+      });
 
-  //     socket.on("appMessage", (data) => {
-  //       if (data.action === "create" && shouldUpdateTicket(data.ticket)) {
-  //         dispatch({
-  //           type: "UPDATE_TICKET_UNREAD_MESSAGES",
-  //           payload: data.ticket,
-  //         });
-  //       }
-  //     });
+      socket.on("appMessage", (data) => {
+        if (data.action === "create" && shouldUpdateTicket(data.ticket)) {
+          dispatch({
+            type: "UPDATE_TICKET_UNREAD_MESSAGES",
+            payload: data.ticket,
+          });
+        }
+      });
 
-  //     socket.on("contact", (data) => {
-  //       if (data.action === "update") {
-  //         dispatch({
-  //           type: "UPDATE_TICKET_CONTACT",
-  //           payload: data.contact,
-  //         });
-  //       }
-  //     });
+      socket.on("contact", (data) => {
+        if (data.action === "update") {
+          dispatch({
+            type: "UPDATE_TICKET_CONTACT",
+            payload: data.contact,
+          });
+        }
+      });
 
-  //     return () => {
-  //       socket.disconnect();
-  //     };
-  //     // eslint-disable-next-line react-hooks/exhaustive-deps
-  //   }, [status, searchParam, showAll, user, selectedQueueIds, dispatch]);
+      return () => {
+        socket.disconnect();
+      };
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [status, searchParam, showAll, user, selectedQueueIds, dispatch]);
   //   Edgar
 
   useEffect(() => {

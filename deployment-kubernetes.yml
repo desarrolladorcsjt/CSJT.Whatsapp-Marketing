@@ -50,11 +50,11 @@ spec:
               value: "--no-sandbox --disable-setuid-sandbox"
           resources: # Resource requests and limits for backend
             requests:
-              cpu: "100m"
-              memory: "256Mi"
-            limits:
-              cpu: "500m"
+              cpu: "250m"
               memory: "512Mi"
+            limits:
+              cpu: "1000m"
+              memory: "1024Mi" 
           volumeMounts:
             - name: public-data
               mountPath: /usr/src/app/public
@@ -112,11 +112,11 @@ spec:
               value: "http://192.168.1.55:30080"
           resources: # Resource requests and limits for frontend
             requests:
-              cpu: "50m"
-              memory: "128Mi"
-            limits:
-              cpu: "250m"
+              cpu: "100m"
               memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
           volumeMounts:
             - name: ssl-certs
               mountPath: /etc/nginx/ssl/
