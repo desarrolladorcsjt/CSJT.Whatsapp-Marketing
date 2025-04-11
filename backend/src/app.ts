@@ -15,7 +15,7 @@ import { logger } from "./utils/logger";
 Sentry.init({ dsn: process.env.SENTRY_DSN });
 
 const app = express();
-const allowedOrigins = [process.env.FRONTEND_URL, 'http://localhost', 'http://127.0.0.1',, 'http://192.168.1.230'];
+const allowedOrigins = [process.env.FRONTEND_URL, 'http://localhost', 'http://127.0.0.1',, 'http://192.168.1.230','http://192.168.1.55'];
 
 app.use(
   cors({
