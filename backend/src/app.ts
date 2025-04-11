@@ -18,7 +18,7 @@ const app = express();
 const allowedOrigins = [process.env.FRONTEND_URL, 'http://localhost', 'http://127.0.0.1', 'http://192.168.1.230', 'http://192.168.1.55'];
 
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*'); // ⚠️ En producción mejor usar el dominio específico
+  res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE');
   next();

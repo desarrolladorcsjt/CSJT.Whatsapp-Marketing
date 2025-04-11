@@ -22,6 +22,7 @@ spec:
       containers:
         - name: backend
           image: sistemascsjt/whatsapp-backend-marketing
+          imagePullPolicy: Always
           ports:
             - containerPort: 3000
           env:
@@ -100,6 +101,7 @@ spec:
       containers:
         - name: frontend
           image: sistemascsjt/whatsapp-frontend-marketing
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
             - containerPort: 443
