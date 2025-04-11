@@ -15,11 +15,11 @@ import { logger } from "./utils/logger";
 Sentry.init({ dsn: process.env.SENTRY_DSN });
 
 const app = express();
-const allowedOrigins = [process.env.FRONTEND_URL, 'http://localhost', 'http://127.0.0.1',, 'http://192.168.1.230','http://192.168.1.55'];
+const allowedOrigins = [process.env.FRONTEND_URL, 'http://localhost', 'http://127.0.0.1', 'http://192.168.1.230', 'http://192.168.1.55'];
 
 app.use(
   cors({
-    credentials: true,
+    credentials: false,
     // origin: process.env.FRONTEND_URL
     origin: function (origin, callback) {
       // Si no hay origen (como en solicitudes desde el mismo dominio) o el origen está permitido
