@@ -33,7 +33,7 @@ spec:
             - name: DB_PASS
               value: "CL1N1C4S4NJUD4ST4D30*2024"
             - name: DB_NAME
-              value: "dbWhatsapp_marketing"
+              value: "dbWhatsapp"
             - name: JWT_SECRET
               value: "3123123213123"
             - name: JWT_REFRESH_SECRET
