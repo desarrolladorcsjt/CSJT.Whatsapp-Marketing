@@ -34,12 +34,20 @@ class Message extends Model<Message> {
   @Column(DataType.TEXT)
   body: string;
 
+  // @Column(DataType.STRING)
+  // get mediaUrl(): string | null {
+  //   if (this.getDataValue("mediaUrl")) {
+  //     return `${process.env.BACKEND_URL}:${
+  //       process.env.PROXY_PORT
+  //     }/public/${this.getDataValue("mediaUrl")}`;
+  //   }
+  //   return null;
+  // }
+
   @Column(DataType.STRING)
   get mediaUrl(): string | null {
     if (this.getDataValue("mediaUrl")) {
-      return `${process.env.BACKEND_URL}:${
-        process.env.PROXY_PORT
-      }/public/${this.getDataValue("mediaUrl")}`;
+      return `http://192.168.1.55:30080/public/${this.getDataValue("mediaUrl")}`;
     }
     return null;
   }

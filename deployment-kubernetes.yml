@@ -10,7 +10,7 @@ metadata:
   name: whatsapp-backend
   namespace: monitoring
 spec:
-  replicas: 1
+  replicas: 1 # ✅ Importante: debe ser 1 para evitar conflictos con la sesión
   selector:
     matchLabels:
       app: whatsapp-backend-marketing
@@ -48,7 +48,7 @@ spec:
               value: "8080"
             - name: CHROME_ARGS
               value: "--no-sandbox --disable-setuid-sandbox"
-          resources: # Resource requests and limits for backend
+          resources:
             requests:
               cpu: "1000m"
               memory: "1024Mi"
@@ -60,6 +60,8 @@ spec:
               mountPath: /usr/src/app/public
             - name: auth-data
               mountPath: /usr/src/app/.wwebjs_auth
+            - name: cache-data
+              mountPath: /usr/src/app/.wwebjs_cache # ✅ Añadido para evitar errores con Puppeteer
       volumes:
         - name: public-data
           hostPath:
@@ -72,7 +74,8 @@ spec:
         - name: cache-data
           hostPath:
             path: /data/whatsapp-backend/.wwebjs_cache
-            type: DirectoryOrCreate 
+            type: DirectoryOrCreate
+
 ---
 apiVersion: v1
 kind: Service
@@ -87,8 +90,7 @@ spec:
     - name: http
       port: 3000
       targetPort: 3000
-      nodePort: 30080
-
+      nodePort: 30080 
 ---
 apiVersion: apps/v1
 kind: Deployment
