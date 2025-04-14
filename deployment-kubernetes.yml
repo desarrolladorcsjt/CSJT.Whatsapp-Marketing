@@ -50,11 +50,11 @@ spec:
               value: "--no-sandbox --disable-setuid-sandbox"
           resources: # Resource requests and limits for backend
             requests:
-              cpu: "250m"
-              memory: "512Mi"
-            limits:
               cpu: "1000m"
-              memory: "1024Mi" 
+              memory: "1024Mi"
+            limits:
+              cpu: "2000m"
+              memory: "4096Mi"
           volumeMounts:
             - name: public-data
               mountPath: /usr/src/app/public
@@ -62,10 +62,17 @@ spec:
               mountPath: /usr/src/app/.wwebjs_auth
       volumes:
         - name: public-data
-          emptyDir: {}
+          hostPath:
+            path: /data/whatsapp-backend/public
+            type: DirectoryOrCreate
         - name: auth-data
-          emptyDir: {}
-
+          hostPath:
+            path: /data/whatsapp-backend/.wwebjs_auth
+            type: DirectoryOrCreate
+        - name: cache-data
+          hostPath:
+            path: /data/whatsapp-backend/.wwebjs_cache
+            type: DirectoryOrCreate 
 ---
 apiVersion: v1
 kind: Service
@@ -112,11 +119,11 @@ spec:
               value: "http://192.168.1.55:30080"
           resources: # Resource requests and limits for frontend
             requests:
-              cpu: "100m"
-              memory: "256Mi"
-            limits:
               cpu: "500m"
               memory: "512Mi"
+            limits:
+              cpu: "1000m"
+              memory: "1024Mi"
           volumeMounts:
             - name: ssl-certs
               mountPath: /etc/nginx/ssl/
@@ -132,17 +139,18 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: frontend-loadbalancer
+  name: frontend-service
   namespace: monitoring
 spec:
-  type: LoadBalancer
+  type: NodePort
   selector:
     app: whatsapp-frontend-marketing
   ports:
     - name: http
       port: 80
       targetPort: 80
+      nodePort: 31080 # You can choose an available port in the NodePort range (30000-32767)
     - name: https
       port: 443
       targetPort: 443
-  loadBalancerIP: 192.168.1.253
+      nodePort: 31443 # Choose another available port in the NodePort range
